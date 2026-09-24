@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iamkani · Data projects that say how sure they are</title>
+<meta name="description" content="Each project here separates what was verified by running from what is only built, planned, or waiting on someone else. Claims carry their evidence the way an answer carries its citations.">
+<meta name="theme-color" content="#1f2421">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 20a8 8 0 0 1 8-8h26l16 16v8L42 52H16a8 8 0 0 1-8-8z' fill='%23f2c318' stroke='%231f2421' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='20' cy='32' r='5' fill='%231f2421'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="desk">
+  <nav class="rail" aria-label="Site">
+    <div class="rail-inner">
+      <a class="brand" href="/"><span class="brand-tag">IK</span><span><span class="brand-name">iamkani</span>
+        <span class="brand-sub" style="display:block">Data projects that say how sure they are</span></span></a>
+      <p class="rail-label">Pages</p>
+      <ul class="nav"><li><a href="/" aria-current="page"><span>Home</span></a></li><li><a href="/nb-sar/"><span>NB-SAR</span><span class="nav-status is-live">live</span></a></li><li><a href="/ac-sar/"><span>AC-SAR</span><span class="nav-status">scoping</span></a></li><li><a href="/sources/"><span>Sources &amp; licences</span></a></li></ul>
+      <div class="rail-foot">
+        <a href="https://github.com/iamkani">GitHub</a><br>
+        Evidence first: every claim says how it was checked.
+      </div>
+    </div>
+  </nav>
+  <main class="doc" id="main">
+    <div class="doc-inner">
+      <header class="page-head">
+        <p class="kicker">Portfolio</p>
+        <h1>Data projects that say how sure they are</h1>
+        <p class="lede">Each project here separates what was verified by running from what is only built, planned, or waiting on someone else. Claims carry their evidence the way an answer carries its citations.</p>
+      </header>
+      <div class="cards"><a class="card" href="/nb-sar/"><p class="card-kind">Live · document intelligence</p><span class="card-title">NB-SAR</span><span class="card-text">30 species-at-risk recovery documents (1,600 pages) turned into one knowledge graph where every item cites the page it came from.</span><span class="card-foot">562 nodes · 76 edges · 100 % of edges grounded</span></a><a class="card" href="/ac-sar/"><p class="card-kind">Scoping · extension of NB-SAR</p><span class="card-title">AC-SAR</span><span class="card-text">Taking NB-SAR to Atlantic Canada. Counting what the registry really holds turned up a filter that overshoots, and 74 new documents in scope.</span><span class="card-foot">117 tagged → 99 in scope → 74 new</span></a></div>
+      <div class="body plain"><h2>What ties these together</h2>
+<p>Both projects come from the same habit: before believing a result, look for the test that could break it, then say which claims survived.</p>
+<p>NB-SAR grew from 1 to 30 documents by picking documents that would break it, and logging every fix. AC-SAR started by counting what the federal registry actually holds before running anything, and found that the registry's own province filter follows species ranges, not places.</p>
+<p>Yellow tags such as <span class="tag">DECISIONS_LEDGER</span> cite the document a claim rests on.</p></div>
+    </div>
+  </main>
+  <aside class="evidence" aria-label="Evidence">
+    <div class="evidence-inner"><p class="ev-kicker">Reading this site</p><h2 class="ev-title">The evidence ledger</h2><p class="ev-note">Every project page ends its claims in a ledger like this one, on the right.</p><section class="ledger"><div class="ledger-head"><span class="ledger-mark" aria-hidden="true">✓</span>Verified by running</div><dl class="ledger-rows"><div><dt>Means</dt><dd>A number produced by running the code on the real documents, and reproducible</dd></div></dl></section><section class="ledger ledger-caution"><div class="ledger-head"><span class="ledger-mark" aria-hidden="true">~</span>Built, dry-run only</div><dl class="ledger-rows"><div><dt>Means</dt><dd>The code exists and runs end to end, but the step that matters hasn't been run for real yet</dd></div></dl></section><section class="ledger ledger-unverified"><div class="ledger-head"><span class="ledger-mark" aria-hidden="true">!</span>Not yet proven</div><ul class="ledger-issues"><li>A gap, stated plainly<span>With the number that shows it, rather than left out</span></li></ul></section></div>
+  </aside>
+</div>
+</body>
+</html>
