@@ -22,12 +22,11 @@ def blocklist():
 
 
 def files():
-    for root in ("docs", "content", "assets"):
-        for d, _, names in os.walk(os.path.join(HERE, root)):
-            for n in names:
-                if n.endswith((".html", ".md", ".css")):
-                    yield os.path.join(d, n)
-    yield os.path.join(HERE, "README.md")
+    for d, dirs, names in os.walk(HERE):
+        dirs[:] = [x for x in dirs if x not in (".git", ".venv", "__pycache__")]
+        for n in names:
+            if n.endswith((".html", ".md", ".css")):
+                yield os.path.join(d, n)
 
 
 def main():
@@ -43,9 +42,9 @@ def main():
         for t, rx in terms:
             if rx.search(text):
                 problems.append(f"{rel}: blocked term '{t}'")
-        if rel.startswith("docs"):
+        if rel.endswith(".html"):
             for href in HREF.findall(text):
-                target = os.path.join(HERE, "docs", href.lstrip("/"))
+                target = os.path.join(HERE, href.lstrip("/"))
                 if not (os.path.isfile(target) or os.path.isfile(os.path.join(target, "index.html"))):
                     problems.append(f"{rel}: broken internal link {href}")
     if problems:

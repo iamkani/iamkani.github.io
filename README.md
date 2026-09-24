@@ -1,16 +1,16 @@
 # iamkani.github.io
 
-A portfolio of data projects that say how sure they are. Served by GitHub Pages from `docs/`.
+A portfolio of data projects that say how sure they are. Served by GitHub Pages from the repo root: the built pages live at the top level, and the sources live in `src/`.
 
 ## Build
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python build.py    # content/*.md -> docs/
+.venv/bin/python build.py    # src/content/*.md -> index.html, nb-sar/, ac-sar/, sources/
 .venv/bin/python check.py    # leak and link check; must pass before every push
 ```
 
-- **Pages** are markdown files in `content/`, with YAML front matter. The front matter holds the page's evidence ledger: what was verified by running, what is built but only dry-run, and what isn't proven yet.
+- **Pages** are markdown files in `src/content/`, with YAML front matter. The front matter holds the page's evidence ledger: what was verified by running, what is built but only dry-run, and what isn't proven yet.
 - **Figures and tables** are generated from the project repos at build time (`AC_SAR_REPO`, default `~/Documents/GitHub/ac-sar`). Only the built HTML is committed.
 - **`check.py`** fails the build on email addresses, on internal working terms, on any term in a local `.blocklist` (gitignored), and on broken internal links.
 

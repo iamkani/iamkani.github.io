@@ -1,6 +1,6 @@
-"""Build the portfolio site into docs/ (served by GitHub Pages).
+"""Build the portfolio site into the repo root (served by GitHub Pages from main).
 
-Pages are markdown files in content/ with YAML front matter. The layout is the
+Pages are markdown files in src/content/ with YAML front matter. The layout is the
 evidence desk: a charcoal rail for navigation, the page in the middle, and an
 evidence ledger on the right that says how well each claim is supported.
 
@@ -26,7 +26,8 @@ import markdown
 import yaml
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "docs")
+OUT = HERE
+SRC = os.path.join(HERE, "src")
 AC_SAR = os.path.expanduser(os.environ.get("AC_SAR_REPO", "~/Documents/GitHub/ac-sar"))
 SITE = {"name": "iamkani", "sub": "Data projects that say how sure they are", "github": "https://github.com/iamkani"}
 
@@ -42,10 +43,10 @@ FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox
 # ---- content -----------------------------------------------------------------
 def load_pages():
     pages = []
-    for name in sorted(os.listdir(os.path.join(HERE, "content"))):
+    for name in sorted(os.listdir(os.path.join(SRC, "content"))):
         if not name.endswith(".md"):
             continue
-        raw = open(os.path.join(HERE, "content", name), encoding="utf-8").read()
+        raw = open(os.path.join(SRC, "content", name), encoding="utf-8").read()
         _, fm, body = raw.split("---", 2)
         meta = yaml.safe_load(fm)
         meta["body_md"] = body
@@ -241,17 +242,23 @@ def render_page(page, pages):
 
 def main():
     pages = load_pages()
-    if os.path.isdir(OUT):
-        shutil.rmtree(OUT)
+    # Only generated paths are removed: index.html, assets/ and one folder per page.
+    for page in pages:
+        target = os.path.join(OUT, page["slug"]) if page["slug"] else os.path.join(OUT, "index.html")
+        if page["slug"] and os.path.isdir(target):
+            shutil.rmtree(target)
+        elif not page["slug"] and os.path.exists(target):
+            os.remove(target)
+    shutil.rmtree(os.path.join(OUT, "assets"), ignore_errors=True)
     os.makedirs(os.path.join(OUT, "assets"))
-    shutil.copy(os.path.join(HERE, "assets", "style.css"), os.path.join(OUT, "assets", "style.css"))
+    shutil.copy(os.path.join(SRC, "style.css"), os.path.join(OUT, "assets", "style.css"))
     open(os.path.join(OUT, ".nojekyll"), "w").close()
     for page in pages:
         d = os.path.join(OUT, page["slug"]) if page["slug"] else OUT
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(render_page(page, pages))
-    print(f"built {len(pages)} pages into docs/")
+    print(f"built {len(pages)} pages into the repo root")
 
 
 if __name__ == "__main__":
