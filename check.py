@@ -3,6 +3,8 @@
 Fails if the built site or its sources contain an email address, the word
 "outbox", or any term listed in .blocklist (a local, gitignored file with one
 term per line). Also checks that every internal link points at a built page.
+Fails closed: without a .blocklist the check refuses to pass, so a build on a
+machine that lacks the list can't be published unchecked.
 """
 import os
 import re
@@ -16,9 +18,11 @@ HREF = re.compile(r'href="(/[^"#]*)"')
 def blocklist():
     path = os.path.join(HERE, ".blocklist")
     if not os.path.exists(path):
-        print("note: .blocklist is missing; only emails and 'outbox' are checked")
-        return []
-    return [t.strip() for t in open(path, encoding="utf-8") if t.strip() and not t.startswith("#")]
+        sys.exit("check failed: .blocklist is missing. Create it (one term per line) before building for publication.")
+    terms = [t.strip() for t in open(path, encoding="utf-8") if t.strip() and not t.startswith("#")]
+    if not terms:
+        sys.exit("check failed: .blocklist has no terms.")
+    return terms
 
 
 def files():
